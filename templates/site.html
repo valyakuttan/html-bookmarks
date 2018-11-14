@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    <p class="important">
+      <div id="content">
+        <h2> {{ title }} </h2>
+        <p>{{ list_title }}</p>
+        <ul>
+          {% for x in list %}
+          <li><a href="{{ x.url }}">{{ x.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </p>
+{% endblock %}
