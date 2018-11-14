@@ -12,7 +12,9 @@ def list_of_json_files(path):
 def to_list(d):
     if "_store" in d:
         return [
-            Bookmark(v['_bookmarkTitle'], v['_bookmarkUrl'])
+            Bookmark(v["_bookmarkTitle"],
+                     v["_bookmarkUrl"],
+                     v["_bookmarkDateAdded"])
             for v in d["_store"]["store"].values()
         ]
     else:

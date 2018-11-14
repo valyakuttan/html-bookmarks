@@ -20,9 +20,11 @@ if __name__ == "__main__":
     counter = 0
     oprefix = "bookmark"
 
+    my_list = sorted(my_list, key=lambda b: b.delta)
+
     while my_list:
         counter += 1
-        c = str(counter).zfill(3)
+        c = str(counter).zfill(2)
         my_title = "{0}-{1}".format(oprefix, c)
 
         chunk_size = 25
