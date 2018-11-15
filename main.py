@@ -19,8 +19,7 @@ if __name__ == "__main__":
 
     counter = 0
     oprefix = "bookmark"
-
-    my_list = sorted(my_list, key=lambda b: b.delta)
+    my_list = sorted(my_list, key=lambda b: b.date_added)
 
     while my_list:
         counter += 1

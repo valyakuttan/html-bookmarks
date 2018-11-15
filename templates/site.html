@@ -6,7 +6,9 @@
         <p>{{ list_title }}</p>
         <ul>
           {% for x in list %}
-          <li><a href="{{ x.url }}">{{ x.title }}</a></li>
+          <li><a href="{{ x.url }}">
+              {{ x.title + " [" + x.formatted_date + "]" }}
+          </a></li>
           {% endfor %}
         </ul>
       </div>
