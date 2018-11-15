@@ -16,7 +16,9 @@ class Bookmark:
 
     @property
     def formatted_date(self):
-        return "Bookmark added on " + self.date_added.isoformat()
+        return ("{0:%A} {0:%B} {0:%d} {0:%Y}").format(
+            self.date_added
+        )
 
     def __str__(self):
         return "({0.title}, {0.url})".format(self)
