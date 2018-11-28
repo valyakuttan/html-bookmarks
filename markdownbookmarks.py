@@ -1,12 +1,16 @@
 # markdownbookmarks.py
 
 import re
-
-from bookmark import Bookmark
 from functools import partial
+
+from bookmark import mk_bookmark
+
+
+__all__ = ["load_bookmarks_from_markdown"]
 
 
 def load_bookmarks_from_markdown(markdown, date_created=0):
+    "Return an iterable of bookmarks from a markdown stream."
     md = markdown.strip()
     entries = re.split(r"\n\n+", md)
     md2bm = partial(markdown_entry_to_bookmark,
@@ -35,13 +39,13 @@ def markdown_entry_to_bookmark(entry, date_created):
         return bm
 
     else:
-        return Bookmark("", "")
+        return mk_bookmark("", "")
 
 
 def bm_from_md(markdown):
     md = markdown.strip()
     title, url = title_and_url(md)
-    bm = Bookmark(title.strip(), url.strip())
+    bm = mk_bookmark(title.strip(), url.strip())
     return bm
 
 

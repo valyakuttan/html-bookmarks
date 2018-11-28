@@ -2,11 +2,14 @@
 
 import json
 
-from bookmark import Bookmark
+from bookmark import mk_bookmark
+
+
+__all__ = ["load_bookmarks_from_json"]
 
 
 def load_bookmarks_from_json(stream):
-    "Load bookmarks from a json stream."
+    "Return an iterable of bookmarks from a json stream."
     data = json.load(stream)
     return json_to_bookmarks(data)
 
@@ -20,10 +23,10 @@ def json_to_bookmarks(cloud):
 
 
 def json_to_bookmark(json):
-    return Bookmark(json["_bookmarkTitle"],
-                    json["_bookmarkUrl"],
-                    json["_bookmarkTags"],
-                    json["_bookmarkDateAdded"])
+    return mk_bookmark(json["_bookmarkTitle"],
+                       json["_bookmarkUrl"],
+                       json["_bookmarkTags"],
+                       json["_bookmarkDateAdded"])
 
 
 if __name__ == "__main__":

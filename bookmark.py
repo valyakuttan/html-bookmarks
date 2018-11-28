@@ -1,6 +1,14 @@
 # bookmark.py
 from datetime import timedelta, timezone, datetime
 
+
+__all__ = ["mk_bookmark"]
+
+
+def mk_bookmark(title, url, tags=None, micro_seconds=0):
+    return Bookmark(title, url, tags, micro_seconds)
+
+
 # Unix Epoch
 Epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)
 

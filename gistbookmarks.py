@@ -3,6 +3,9 @@
 from github3 import login
 
 
+__all__ = ["retrieve_bookmarks_from_github"]
+
+
 class GistBookmark:
     def __init__(self, gist):
         self.gist = gist
@@ -42,7 +45,7 @@ class GistBookmark:
 
 
 def retrieve_bookmarks_from_github(username, password):
-    "Return a list of (markdown, date) pair."
+    "Return an iterable of (markdown, date) pair from Github."
     gh = login(username, password)
     gists = filter(lambda g: contains_bookmark(g), gh.gists())
     bookmarks = map(GistBookmark, gists)
