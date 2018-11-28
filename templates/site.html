@@ -7,7 +7,7 @@
         <ul>
           {% for x in list %}
           <li><a href="{{ x.url }}">
-              {{ x.title + "[" + x.formatted_date + "]" }}
+              {{ x.title + x.tags_string + x.formatted_date }}
           </a></li>
           {% endfor %}
         </ul>
