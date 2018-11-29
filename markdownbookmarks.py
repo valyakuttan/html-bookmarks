@@ -3,6 +3,7 @@
 import re
 from functools import partial
 
+
 from bookmark import mk_bookmark
 
 
@@ -72,11 +73,3 @@ def title_and_url(line):
         return title.strip(), url.strip()
     else:
         return "Title", ""
-
-
-if __name__ == "__main__":
-    name = ("/home/valyakuttan/Downloads"
-            "/html-bookmarks/link-without-tags.md")
-
-    with open(name) as f:
-        markdown = f.read()

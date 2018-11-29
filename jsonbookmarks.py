@@ -27,18 +27,3 @@ def json_to_bookmark(json):
                        json["_bookmarkUrl"],
                        json["_bookmarkTags"],
                        json["_bookmarkDateAdded"])
-
-
-if __name__ == "__main__":
-
-    path = "/home/valyakuttan/Downloads/Bookmarks/data/bookmarks"
-    file_name = path + "/bookmark-cloud-0.jsonon"
-
-    with open(file_name) as f:
-        x = json.load(f)
-        bs = json_to_bookmarks(x)
-        tags = [b.tags_string for b in bs]
-
-        print(bs)
-        print()
-        print(tags)
