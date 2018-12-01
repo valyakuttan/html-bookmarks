@@ -1,27 +1,47 @@
-# markdownbookmarks.py
+# markdownstreams.py
+
 
 import re
-from functools import partial
-
 
 from bookmark import mk_bookmark
 
 
-__all__ = ["load_bookmarks_from_markdown"]
+__all__ = ["mk_markdownbookmark"]
 
 
-def load_bookmarks_from_markdown(markdown, date_created=0):
-    "Return an iterable of bookmarks from a markdown stream."
-    md = markdown.strip()
-    entries = re.split(r"\n\n+", md)
-    md2bm = partial(markdown_entry_to_bookmark,
-                    date_created=date_created)
-
-    bookmarks = map(md2bm, entries)
-    return filter(lambda b: b.url, bookmarks)
+def mk_markdownbookmark(markdown, date_added):
+    return MarkdownBookmark(markdown, date_added)
 
 
-def markdown_entry_to_bookmark(entry, date_created):
+class MarkdownBookmark:
+    def __init__(self, markdown, date_added):
+        self.markdown = markdown
+        self.date_added = date_added
+
+    @property
+    def bookmarks(self):
+        def md2bm(entry):
+            bm = markdown_entry_to_bookmark(entry)
+            bm.date_added = self.date_added
+            return bm
+
+        if self.markdown:
+            md = self.markdown.strip()
+            entries = re.split(r"\n\n+", md)
+            bms = map(md2bm, entries)
+
+            return filter(lambda b: b.url, bms)
+        else:
+            return iter([])
+
+    def __str__(self):
+        return "{0} ({1})".format(self.markdown, self.date_added)
+
+    def __repr__(self):
+        return "{0} ({1})".format(self.markdown, self.date_added)
+
+
+def markdown_entry_to_bookmark(entry):
     md = entry.strip()
     xs = re.split(r"\n", md)
 
@@ -30,13 +50,10 @@ def markdown_entry_to_bookmark(entry, date_created):
 
         tags = bookmark_tags(xs[1].strip())
         bm.tags = tags
-
-        bm.date_added = date_created
         return bm
 
     elif len(xs) == 1:
         bm = bm_from_md(xs[0])
-        bm.date_added = date_created
         return bm
 
     else:

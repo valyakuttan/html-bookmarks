@@ -3,6 +3,9 @@
 from jinja2 import Environment, FileSystemLoader
 
 
+__all__ = ["html_output"]
+
+
 # Load template file templates/site.html
 TEMPLATE_FILE = "site.html"
 templateLoader = FileSystemLoader(searchpath="templates/")

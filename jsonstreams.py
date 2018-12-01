@@ -1,17 +1,26 @@
-# jsonbookmarks.py
+# jsonstreams.py
+
 
 import json
+import glob
 
 from bookmark import mk_bookmark
 
 
-__all__ = ["load_bookmarks_from_json"]
+__all__ = ["json_bookmarks"]
 
 
-def load_bookmarks_from_json(stream):
-    "Return an iterable of bookmarks from a json stream."
-    data = json.load(stream)
-    return json_to_bookmarks(data)
+def json_bookmarks(path):
+    json_files = glob.glob(path + "/*.json")
+    return map(load_bookmarks, json_files)
+
+
+def load_bookmarks(file_name):
+    json_data = {}
+    with open(file_name) as f:
+        json_data = json.load(f)
+
+    return json_to_bookmarks(json_data)
 
 
 def json_to_bookmarks(cloud):
@@ -19,7 +28,7 @@ def json_to_bookmarks(cloud):
         return map(json_to_bookmark,
                    cloud["_store"]["store"].values())
     else:
-        return []
+        return iter([])
 
 
 def json_to_bookmark(json):
